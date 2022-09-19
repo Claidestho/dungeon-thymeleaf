@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>List of characters</title>
+</head>
+<body>
+<h1>Donjons et Dragons - Liste des personnages</h1>
+<table border="1">
+    <tr>
+        <th>Nom</th>
+        <th>Type</th>
+        <th>Points de vie</th>
+    </tr>
+    <tr th:each ="character : ${characters}">
+        <td ><a th:href="@{'/characters/' + ${character.id}}" th:text="${character.name}"></a></td>
+        <td th:text="${character.type}"></td>
+        <td th:text="${character.healthPoints}"></td>
+    </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Character</title>
+</head>
+<body>
+<h1>Donjons et Dragons - Ajouter un personnage</h1>
+
+<form action="#" th:action="@{/characters/add}"
+      th:object="${newCharacter}" method="POST">
+    Nom du personnage :
+    <input type="text" th:field="*{name}"/>
+    <br/>
+
+    <label>Type de personnage:</label>
+    <select th:field="*{type}">
+        <option th:each="type : ${typeList}" th:value="${type}" th:text="${type}" />
+    </select>
+    <br/>
+    Nombre de points de vie :
+    <input type="text" th:field="*{healthPoints}"/>
+    <br/>
+    <input type="submit" value="Create" />
+</form>
+
+</body>
+</html>

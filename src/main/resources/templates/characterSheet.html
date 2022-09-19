@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>List of characters</title>
+</head>
+<body>
+<h1>Donjons et Dragons - Fiche de personnage</h1>
+<h2>Nom du personnage : <span  th:text="${character.name}"></span></h2>
+<h2>Type de personnage : <span  th:text="${character.type}"></span></h2>
+<h2>Points de vie : <span  th:text="${character.healthPoints}"></span></h2>
+
+</body>
+</html>
