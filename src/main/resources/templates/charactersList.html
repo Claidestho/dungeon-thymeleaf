@@ -8,11 +8,13 @@
 <h1>Donjons et Dragons - Liste des personnages</h1>
 <table border="1">
     <tr>
+        <th>ID</th>
         <th>Nom</th>
         <th>Type</th>
         <th>Points de vie</th>
     </tr>
     <tr th:each ="character : ${characters}">
+        <td th:text="${character.id}"></td>
         <td ><a th:href="@{'/characters/' + ${character.id}}" th:text="${character.name}"></a></td>
         <td th:text="${character.type}"></td>
         <td th:text="${character.healthPoints}"></td>

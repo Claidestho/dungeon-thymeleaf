@@ -10,17 +10,18 @@
 <form action="#" th:action="@{/characters/add}"
       th:object="${newCharacter}" method="POST">
     Nom du personnage :
-    <input type="text" th:field="*{name}"/>
+    <input type="text" th:field="*{name}" value=""/>
     <br/>
 
     <label>Type de personnage:</label>
-    <select th:field="*{type}">
+    <select th:field="*{type}" value="">
         <option th:each="type : ${typeList}" th:value="${type}" th:text="${type}" />
     </select>
     <br/>
     Nombre de points de vie :
-    <input type="text" th:field="*{healthPoints}"/>
+    <input type="text" th:field="*{healthPoints}" value=""/>
     <br/>
+    <input type="hidden" value="4" th:field="*{id}">
     <input type="submit" value="Create" />
 </form>
 

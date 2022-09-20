@@ -1,6 +1,5 @@
 package com.application.dungeonsthymeleaf;
 
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -9,9 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @Controller
 public class CharacterController {
@@ -27,7 +24,7 @@ public class CharacterController {
     @RequestMapping("/characters")
     public String getTemplate(Model model) {
         model.addAttribute("characters", charactersList);
-        return "index";
+        return "charactersList";
     }
 
     @RequestMapping("/characters/{id}")
@@ -38,9 +35,7 @@ public class CharacterController {
 
     @GetMapping("/characters/add")
     public String showAddCharacter(Model model){
-        PlayableCharacter lastId = charactersList.get(charactersList.size()-1);
-
-        PlayableCharacter newCharacter = new PlayableCharacter(lastId.getId() + 1);
+        PlayableCharacter newCharacter = new PlayableCharacter(0, "Nom du héros", "Type de héros", 0);
         model.addAttribute("newCharacter", newCharacter);
         List<String> typeList = Arrays.asList("Démonsite", "Magicien", "Guerrier", "Voleur");
         model.addAttribute("typeList", typeList);
@@ -48,8 +43,14 @@ public class CharacterController {
     }
 
     @PostMapping("/characters/add")
-    public String submitCharacterForm(@ModelAttribute("newCharacter") Object newCharacter, HttpServletRequest request){
-        return "index";
+    public String submitCharacterForm(@ModelAttribute("newCharacter") PlayableCharacter newCharacter, HttpServletRequest request){
+        String name = newCharacter.getName();
+        String type = newCharacter.getType();
+        int healthPoints = newCharacter.getHealthPoints();
+        PlayableCharacter lastId = charactersList.get(charactersList.size()-1);
+        PlayableCharacter newNewCharacter = new PlayableCharacter(lastId.getId() + 1, name, type, healthPoints);
+        charactersList.add(newNewCharacter);
+        return "redirect:/characters/";
     }
 
 }

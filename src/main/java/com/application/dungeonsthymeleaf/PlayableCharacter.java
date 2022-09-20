@@ -1,5 +1,9 @@
 package com.application.dungeonsthymeleaf;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
+
 public class PlayableCharacter {
 
     private final long id;
@@ -14,9 +18,9 @@ public class PlayableCharacter {
         this.healthPoints = healthPoints;
     }
 
-    public PlayableCharacter(long id) {
+/*    public PlayableCharacter(long id) {
         this.id = id;
-    }
+    }*/
 
     public long getId() {
         return id;
