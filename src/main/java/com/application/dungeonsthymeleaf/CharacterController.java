@@ -21,18 +21,19 @@ public class CharacterController {
         charactersList.add(2, new PlayableCharacter(3, "Jipékof", "Démoniste", 20));
     }
 
+    // Affichage de la liste des personnages
     @RequestMapping("/characters")
     public String getTemplate(Model model) {
         model.addAttribute("characters", charactersList);
         return "charactersList";
     }
-
+// Affichage de la feuille de personnage
     @RequestMapping("/characters/{id}")
     public String getTemplateWithId(@PathVariable("id") int id, Model model){
         model.addAttribute("character", charactersList.stream().filter(elt -> elt.getId() == id).findFirst().orElse(null));
         return "characterSheet";
     }
-
+// Affichage du formulaire d'ajout
     @GetMapping("/characters/add")
     public String showAddCharacter(Model model){
         PlayableCharacter newCharacter = new PlayableCharacter(0, "Nom du héros", "Type de héros", 0);
@@ -41,7 +42,7 @@ public class CharacterController {
         model.addAttribute("typeList", typeList);
         return "addCharacter";
     }
-
+// Récupération de la requête POST du formulaire
     @PostMapping("/characters/add")
     public String submitCharacterForm(@ModelAttribute("newCharacter") PlayableCharacter newCharacter, HttpServletRequest request){
         String name = newCharacter.getName();
