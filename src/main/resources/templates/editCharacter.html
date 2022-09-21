@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Editer votre personnage</title>
+</head>
+<body>
+<h1 th:text="${character.name} + '- Edition du personnage'"></h1>
+<form th:object="${character}" th:method="put" th:action="@{/characters/edit/{id}(id=${character.id})}">
+    <input type="text" th:field="*{name}">
+    <input type="text" th:field="*{type}">
+    <input type="text" th:field="*{healthPoints}">
+    <input type="submit" value="Create">
+</form>
+</body>
+</html>

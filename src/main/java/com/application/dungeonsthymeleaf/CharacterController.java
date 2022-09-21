@@ -27,31 +27,61 @@ public class CharacterController {
         model.addAttribute("characters", charactersList);
         return "charactersList";
     }
-// Affichage de la feuille de personnage
+
+    // Affichage de la feuille de personnage
     @RequestMapping("/characters/{id}")
-    public String getTemplateWithId(@PathVariable("id") int id, Model model){
+    public String getTemplateWithId(@PathVariable("id") int id, Model model) {
         model.addAttribute("character", charactersList.stream().filter(elt -> elt.getId() == id).findFirst().orElse(null));
         return "characterSheet";
     }
-// Affichage du formulaire d'ajout
+
+    // Affichage du formulaire d'ajout
     @GetMapping("/characters/add")
-    public String showAddCharacter(Model model){
+    public String showAddCharacter(Model model) {
         PlayableCharacter newCharacter = new PlayableCharacter(0, "Nom du héros", "Type de héros", 0);
         model.addAttribute("newCharacter", newCharacter);
         List<String> typeList = Arrays.asList("Démonsite", "Magicien", "Guerrier", "Voleur");
         model.addAttribute("typeList", typeList);
         return "addCharacter";
     }
-// Récupération de la requête POST du formulaire
+
+    // Récupération de la requête POST du formulaire
     @PostMapping("/characters/add")
-    public String submitCharacterForm(@ModelAttribute("newCharacter") PlayableCharacter newCharacter, HttpServletRequest request){
+    public String submitCharacterForm(@ModelAttribute("newCharacter") PlayableCharacter newCharacter, HttpServletRequest request) {
         String name = newCharacter.getName();
         String type = newCharacter.getType();
         int healthPoints = newCharacter.getHealthPoints();
-        PlayableCharacter lastId = charactersList.get(charactersList.size()-1);
-        PlayableCharacter newNewCharacter = new PlayableCharacter(lastId.getId() + 1, name, type, healthPoints);
+        long lastId;
+        if (charactersList.size() == 0){
+            lastId = 0;
+        } else {
+            lastId = charactersList.get(charactersList.size() - 1).getId();
+        }
+        PlayableCharacter newNewCharacter = new PlayableCharacter(lastId + 1, name, type, healthPoints);
         charactersList.add(newNewCharacter);
         return "redirect:/characters/";
+    }
+
+    @GetMapping("/characters/edit/{id}")
+    public String showEditCharacter(Model model, @PathVariable("id") int id) {
+        model.addAttribute("character", charactersList.stream().filter(elt -> elt.getId() == id).findFirst().orElse(null));
+        return "editCharacter";
+    }
+
+    @PutMapping("/characters/edit/{id}")
+    public String submitEditForm(@ModelAttribute("character") PlayableCharacter editedCharacter, @PathVariable("id") int id) {
+        PlayableCharacter toEdit = charactersList.stream().filter(elt -> elt.getId() == id).findFirst().orElse(null);
+        toEdit.setName(editedCharacter.getName());
+        toEdit.setType(editedCharacter.getType());
+        toEdit.setHealthPoints(editedCharacter.getHealthPoints());
+        return "redirect:/characters";
+    }
+
+    @DeleteMapping("/characters/delete/{id}")
+    public String deleteCharacter(@PathVariable("id") int id){
+        PlayableCharacter toDelete = charactersList.stream().filter(elt -> elt.getId() == id).findFirst().orElse(null);
+        charactersList.remove(toDelete);
+        return "redirect:/characters";
     }
 
 }

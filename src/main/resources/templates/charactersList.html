@@ -12,13 +12,29 @@
         <th>Nom</th>
         <th>Type</th>
         <th>Points de vie</th>
+        <th>Actions</th>
     </tr>
-    <tr th:each ="character : ${characters}">
+    <tr th:each="character : ${characters}">
         <td th:text="${character.id}"></td>
-        <td ><a th:href="@{'/characters/' + ${character.id}}" th:text="${character.name}"></a></td>
+        <td th:text="${character.name}"></td>
         <td th:text="${character.type}"></td>
         <td th:text="${character.healthPoints}"></td>
+        <td>
+            <button><a th:href="@{'/characters/edit/' + ${character.id}}">Editer</a></button>
+            <form th:method="delete" th:action="@{/characters/delete/{id}(id=${character.id})}">
+                <button>Supprimer</button>
+            </form>
+        </td>
+
     </tr>
 </table>
+<button><a href="/characters/add">Ajouter un personnage</a></button>
 </body>
 </html>
+
+<style>
+    a{
+        text-decoration: none;
+        color: black;
+    }
+</style>
