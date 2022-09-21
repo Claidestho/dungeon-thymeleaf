@@ -20,6 +20,7 @@
         <td th:text="${character.type}"></td>
         <td th:text="${character.healthPoints}"></td>
         <td>
+            <button><a th:href="@{'/characters/' + ${character.id}}">Voir</a></button>
             <button><a th:href="@{'/characters/edit/' + ${character.id}}">Editer</a></button>
             <form th:method="delete" th:action="@{/characters/delete/{id}(id=${character.id})}">
                 <button>Supprimer</button>

@@ -1,29 +1,31 @@
 package com.application.dungeonsthymeleaf;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Primary;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-public class PlayableCharacter {
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class Character {
 
-    private final long id;
+    private int id;
     private String name;
     private String type;
     private int healthPoints;
 
-    public PlayableCharacter(long id, String name, String type, int healthPoints) {
+    public Character(int id, String name, String type, int healthPoints) {
         this.id = id;
         this.name = name;
         this.type = type;
         this.healthPoints = healthPoints;
     }
 
-/*    public PlayableCharacter(long id) {
-        this.id = id;
-    }*/
+    public Character() {
+    }
 
-    public long getId() {
+    public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
