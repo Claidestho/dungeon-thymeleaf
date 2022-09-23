@@ -69,9 +69,6 @@ public class CharacterController {
         return "editCharacter";
     }
 
-    @GetMapping("/error")
-
-
     @PutMapping("/characters/edit/{id}")
     public String submitEditForm(@ModelAttribute("character") Character editedCharacter, @PathVariable("id") int id) throws Exception {
         editedCharacter.setId(id);
